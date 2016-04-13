@@ -54,5 +54,4 @@ function requestUrl2Png(api, api_secret){
 
   };
   request.send();
-  document.getElementById("left").innerHtml = parsedResponse
 }
