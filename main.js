@@ -1,6 +1,6 @@
 $('document').ready(function(){
 
-  $('#button').on('click', requestUrl2Png("PBB2128AF2E314E", "Secret Token"));
+  $('#button').on('click', requestUrl2Png("PBB2128AF2E314E", "SecretToken"));
 
 });
 
@@ -15,14 +15,15 @@ function requestUrl2Png(api, api_secret){
   }
   var queryString = $.param(options)
   var token = CryptoJS.MD5(queryString + api_secret).toString();
-  var callUrl = 'https://api.url2png.com/v6/' + api + '/' + token +'/png/?url=' + queryString
+  var callUrl = 'https://api.url2png.com/v6/' + api + '/' + token +'/png/?' + queryString
 
   $.ajax({url: callUrl,
           success: function(result){
                       console.log("success")
                     },
           xhrFields: {
-            withCredentials: true
+            withCredentials: true,
+            'Allow-Control-Access-Origin': true
           }
   });
 }
