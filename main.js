@@ -16,7 +16,6 @@ function saveCookie(){
     userWebsite = document.getElementById('cookieValue').value;
     document.cookie = cookieName + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
   }
-  
 }
 
 function getCookie(name) {
@@ -28,7 +27,7 @@ function pushToNode(){
   body = {
     url: getCookie(cookieName)
   }
-  console.log(body.url)
+  
   $.ajax({
       type: "GET",
       data: body,
