@@ -27,11 +27,10 @@ function pushToNode(){
   body = {
     url: getCookie(cookieName)
   }
-  
   $.ajax({
       type: "GET",
       data: body,
       url: "http://localhost:5000/",
-      contentType: "application/json"
+      contentType: "text/plain"
     })
 }
