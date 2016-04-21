@@ -1,25 +1,25 @@
 $('document').ready(function(){
 
   $('#leButton').on('click', saveCookie);
-  $('#button').on('click', requestUrl2Png());
+  $('#button').on('click', requestUrlBox());
 
 });
 
-function requestUrl2Png(){
-  var api = "PBB2128AF2E314E"
-      api_secret = "secretKey"
+function requestUrlBox(){
+  var api = "4c1bea44-a9f8-48bd-b61c-a5e5ebb201ff"
+      api_secret = "Secret"
 
       userWebsite = getCookie(cookieName) 
       options = {
           url: userWebsite,
           fullpage: true,
-          protocol: 'http',
-          ttl: 4000000
+          delay: 100,
+          ttl: 40000
         }
       queryString = $.param(options)
-      token = CryptoJS.MD5(queryString + api_secret).toString();
-      callUrl = 'https://api.url2png.com/v6/' + api + '/' + token +'/png/?' + queryString
-
+      token = CryptoJS.HmacSHA1(queryString, api_secret).toString();
+      callUrl = 'https://api.urlbox.io/v1/' + api + '/' + token +'/png/?' + queryString
+      console.log(callUrl)
   $('#image').prepend('<img style="display: inline-block; width: 90%; margin: 0 auto" src="' + callUrl + '" />')
 }
 
