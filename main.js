@@ -1,47 +1,41 @@
 $('document').ready(function(){
 
-  $('#button').on('click', requestUrl2Png("PBB2128AF2E314E", "SecretToken"));
+  $('#leButton').on('click', saveCookie);
+  $('#button').on('click', requestUrl2Png());
 
 });
 
-function requestUrl2Png(api, api_secret){
+function requestUrl2Png(){
+  var api = "PBB2128AF2E314E"
+      api_secret = "S_F7CC42327C701"
 
-  var userWebsite = getCookie('websiteUrl') 
-  var options = {
-    url: userWebsite,
-    fullpage: true,
-    protocol: 'http',
-    ttl: 4000000
-  }
-  var queryString = $.param(options)
-  var token = CryptoJS.MD5(queryString + api_secret).toString();
-  var callUrl = 'https://api.url2png.com/v6/' + api + '/' + token +'/png/?' + queryString
+      userWebsite = getCookie(cookieName) 
+      options = {
+          url: userWebsite,
+          fullpage: true,
+          protocol: 'http',
+          ttl: 4000000
+        }
+      queryString = $.param(options)
+      token = CryptoJS.MD5(queryString + api_secret).toString();
+      callUrl = 'https://api.url2png.com/v6/' + api + '/' + token +'/png/?' + queryString
 
-  $.ajax({url: callUrl,
-          success: function(result){
-                      console.log("success")
-                    },
-          xhrFields: {
-            withCredentials: true,
-            'Allow-Control-Access-Origin': true
-          }
-  });
+  $('#image').prepend('<img style="display: inline-block; width: 90%; margin: 0 auto"src="' + callUrl + '" />')
 }
 
-cookie_name = "websiteUrl";
+
+cookieName = "websiteUrl";
 
 function saveCookie(){
   if(document.cookie != document.cookie){
-    index = document.cookie.indexOf(cookie_name);
-  } else { 
+    index = document.cookie.indexOf(cookieName);
+  } else {
     index = -1;
   }
 
   if (index == -1){
     userWebsite = document.getElementById('cookieValue').value;
-    document.cookie = cookie_name + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
-    var x = document.cookie;
-    
+    document.cookie = cookieName + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
   }
 }
 
@@ -49,3 +43,4 @@ function getCookie(name) {
   match = document.cookie.match(new RegExp(name + '=([^;]+)'));
   if (match) return match[1];
 }
+
