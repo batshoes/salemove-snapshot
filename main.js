@@ -7,7 +7,7 @@ $('document').ready(function(){
 
 function requestUrl2Png(){
   var api = "PBB2128AF2E314E"
-      api_secret = "S_F7CC42327C701"
+      api_secret = "secretKey"
 
       userWebsite = getCookie(cookieName) 
       options = {
@@ -20,7 +20,7 @@ function requestUrl2Png(){
       token = CryptoJS.MD5(queryString + api_secret).toString();
       callUrl = 'https://api.url2png.com/v6/' + api + '/' + token +'/png/?' + queryString
 
-  $('#image').prepend('<img style="display: inline-block; width: 90%; margin: 0 auto"src="' + callUrl + '" />')
+  $('#image').prepend('<img style="display: inline-block; width: 90%; margin: 0 auto" src="' + callUrl + '" />')
 }
 
 
