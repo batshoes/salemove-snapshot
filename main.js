@@ -23,7 +23,6 @@ function requestUrl2Png(){
   $('#image').prepend('<img style="display: inline-block; width: 90%; margin: 0 auto" src="' + callUrl + '" />')
 }
 
-
 cookieName = "websiteUrl";
 
 function saveCookie(){
@@ -43,4 +42,3 @@ function getCookie(name) {
   match = document.cookie.match(new RegExp(name + '=([^;]+)'));
   if (match) return match[1];
 }
-
