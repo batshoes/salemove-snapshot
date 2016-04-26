@@ -1,7 +1,11 @@
 $('document').ready(function(){
 
-  $('#leButton').on('click', saveCookie);
-  $('#button').on('click', requestUrlBox());
+  $('#pushCookie').on('click', saveCookie);
+  
+  $body = $("body");
+  $body.addClass("loading");
+
+  requestUrlBox()
 
 });
 
@@ -14,14 +18,21 @@ function requestUrlBox(){
           url: userWebsite,
           fullpage: true,
           delay: 100,
-          ttl: 40000
+          ttl: 604000
         }
       queryString = $.param(options)
       token = CryptoJS.HmacSHA1(queryString, api_secret).toString();
       callUrl = 'https://api.urlbox.io/v1/' + api + '/' + token +'/png/?' + queryString
-      console.log(callUrl)
-  $('#image').prepend('<img style="display: inline-block; width: 90%; margin: 0 auto" src="' + callUrl + '" />')
-}
+  
+  $('#images').attr("src", callUrl ).css("display", "none")
+ 
+  $('#images').on('load', function(){
+    $body.removeClass("loading");
+    $('#images').css('display', 'inline-block')
+  })
+
+} 
+
 
 cookieName = "websiteUrl";
 
