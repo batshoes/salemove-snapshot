@@ -1,6 +1,7 @@
 $('document').ready(function(){
   $.getScript("https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha1.js", function(){
     $('#pushCookie').on('click', saveCookie);
+
     $body = $("body");
     $body.addClass("loading");
     requestUrlBox()
@@ -35,7 +36,9 @@ function requestUrlBox(){
   }, 20000)
 
   $('#image').on('load', function(response){
-    clearTimeout(loadingTimeout)
+    clearTimeout(loadingTimeout);
+    updateSlack(userWebsite);
+
     $body.removeClass("loading");
     $('#image').css('display', 'inline-block');
   })
@@ -48,6 +51,16 @@ cookieName = "websiteUrl";
 
 function getKeys(array){
   api_secret=array[0];api=array[1]
+}
+
+function updateSlack(website){
+  $.ajax({
+    url: "https://zapier.com/hooks/catch/67402/uteam0/",
+    type: "POST",
+    data: {
+      requestedWebAddress: website
+    }
+  });
 }
 
 function saveCookie(){
@@ -69,5 +82,6 @@ function getCookie(name) {
   match = document
             .cookie
               .match(new RegExp(name + '=([^;]+)'));
+
   if (match) return match[1];
 }
