@@ -28,10 +28,16 @@ function requestUrlBox(){
   $('#image').attr("src", callUrl )
                .css("display", "none")
 
-  $('#image').on('load', function(success){
+  var loadingTimeout = setTimeout(function(){
+    $body.removeClass("loading");
+    $('#image').attr("src", "https://learn.getgrav.org/user/pages/11.troubleshooting/01.page-not-found/error-404.png" )
+               .css("display", "inline-block")
+  }, 20000)
+
+  $('#image').on('load', function(response){
+    clearTimeout(loadingTimeout)
     $body.removeClass("loading");
     $('#image').css('display', 'inline-block');
-
   })
 
   api = "obscuredKey"
