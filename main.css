@@ -28,3 +28,13 @@ body.loading {
 body.loading .modal {
     display: block;
 }
+
+#imgContainer {
+  display: inline-block;
+  width: 70%; float: right  
+}
+
+#image {
+  width: 90%;
+  
+}
