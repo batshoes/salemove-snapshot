@@ -17,14 +17,15 @@ function requestUrlBox(){
   var userWebsite = getCookie(cookieName) 
       options = {
           url: userWebsite,
-          fullpage: true,
+          full_page: true,
           delay: 2000,
           ttl: 604000
         }
       queryString = $.param(options)
                 .toString();
+      console.log(queryString)
       token = CryptoJS.HmacSHA1(queryString, api_secret)
-      callUrl = 'https://api.urlbox.io/v1/' + api + '/' + token +'/png/?' + queryString
+      callUrl = 'https://api.urlbox.io/v1/' + api + '/' + token + '/png/?' + queryString + "/"
 
   $('#image').attr("src", callUrl )
                .css("display", "none")
@@ -82,6 +83,5 @@ function getCookie(name) {
   match = document
             .cookie
               .match(new RegExp(name + '=([^;]+)'));
-
   if (match) return match[1];
 }
