@@ -17,22 +17,22 @@ function requestUrlBox(){
       options = {
           url: userWebsite,
           fullpage: true,
-          delay: 100,
+          delay: 1000,
           ttl: 604000
         }
       queryString = $.param(options)
-      token = CryptoJS.HmacSHA1(queryString, api_secret).toString();
+      token = CryptoJS.HmacSHA1(queryString, api_secret)
+                .toString();
       callUrl = 'https://api.urlbox.io/v1/' + api + '/' + token +'/png/?' + queryString
   
-  $('#images').attr("src", callUrl ).css("display", "none")
+  $('#image').attr("src", callUrl ).css("display", "none")
  
-  $('#images').on('load', function(){
+  $('#image').on('load', function(){
     $body.removeClass("loading");
-    $('#images').css('display', 'inline-block')
+    $('#image').css('display', 'inline-block')
   })
 
 } 
-
 
 cookieName = "websiteUrl";
 
@@ -44,12 +44,16 @@ function saveCookie(){
   }
 
   if (index == -1){
-    userWebsite = document.getElementById('cookieValue').value;
+    userWebsite = document
+                    .getElementById('cookieValue')
+                      .value;
     document.cookie = cookieName + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
   }
 }
 
 function getCookie(name) {
-  match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+  match = document
+            .cookie
+              .match(new RegExp(name + '=([^;]+)'));
   if (match) return match[1];
 }
