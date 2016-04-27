@@ -29,12 +29,23 @@ body.loading .modal {
     display: block;
 }
 
-#imgContainer {
-  display: inline-block;
-  width: 70%; float: right  
+nav {
+  position: fixed;
 }
 
-#image {
-  width: 90%;
-  
+#imgContainer{
+  margin-left: 225px;
+}
+
+.image {
+  margin-top: 20px;
+  width: 1055px;
+}
+
+#left {
+  margin-top: 20px;
+  display: none;
+  max-height: 800px;
+  width: 1280px;
+  position: fixed;  
 }
