@@ -12,7 +12,7 @@
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                url('./loadingcat.gif') 
+                url('https://www.criminalwatchdog.com/images/assets/loading.gif') 
                 50% 50% 
                 no-repeat;
 }
@@ -33,19 +33,31 @@ nav {
   position: fixed;
 }
 
-#imgContainer{
-  margin-left: 225px;
+.empty{
+  height: 100px;
 }
 
-.image {
+#imported-image-container{
+  margin-left: 270px;
+  margin-top: 100px
+  overflow: scroll
+}
+
+#imported-image {
   margin-top: 20px;
   width: 1055px;
 }
 
-#left {
-  margin-top: 20px;
+#static-overlay-image {
+  margin-left: 45px;
+  margin-top: 100px;
   display: none;
   max-height: 800px;
   width: 1280px;
   position: fixed;  
+}
+
+#background-browser {
+  position: fixed;
+  z-index: -1;
 }

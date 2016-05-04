@@ -1,6 +1,11 @@
 $('document').ready(function(){
   $.getScript("https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha1.js", function(){
-    $('#pushCookie').on('click', saveCookie);
+    
+    $("#preview").submit(function( event ) {
+      saveCookie()
+      event.preventDefault();
+    });
+
     $body = $("body");
     $body.addClass("loading");
     requestUrlBox()
@@ -8,12 +13,12 @@ $('document').ready(function(){
 });
 
 function requestUrlBox(){
+  parameterCheck(cookieName)
 
-  var _0x1b89 = [ "\x39\x35\x61\x32\x39\x62\x31\x37\x2D\x30\x61\x65\x34\x2D\x34\x32\x63\x63\x2D\x39\x30\x38\x33\x2D\x64\x61\x30\x64\x66\x33\x39\x30\x30\x31\x63\x38",
-                  "\x34\x63\x31\x62\x65\x61\x34\x34\x2D\x61\x39\x66\x38\x2D\x34\x38\x62\x64\x2D\x62\x36\x31\x63\x2D\x61\x35\x65\x35\x65\x62\x62\x32\x30\x31\x66\x66" ];
-  getKeys(_0x1b89)
+  var _0xb01b=[ "\x34\x61\x61\x35\x62\x64\x65\x64\x2D\x62\x65\x66\x30\x2D\x34\x62\x65\x64\x2D\x61\x62\x66\x62\x2D\x30\x31\x38\x35\x37\x30\x62\x63\x61\x39\x61\x64",
+                "\x64\x30\x61\x66\x32\x65\x33\x39\x2D\x35\x35\x34\x39\x2D\x34\x63\x34\x63\x2D\x38\x61\x34\x37\x2D\x63\x33\x61\x32\x37\x38\x65\x63\x64\x64\x35\x36" ];
+  getKeys(_0xb01b)
 
-  var userWebsite = getCookie(cookieName)
       options = {
           url: userWebsite,
           full_page: true,
@@ -22,44 +27,44 @@ function requestUrlBox(){
         }
       queryString = $.param(options)
                 .toString();
-      token = CryptoJS.HmacSHA1(queryString, api_secret)
-      callUrl = 'https://api.urlbox.io/v1/' + api + '/' + token + '/png/?' + queryString + "/"
+      token = CryptoJS.HmacSHA1(queryString, J8ADq)
+      callUrl = 'https://api.urlbox.io/v1/' + P1Fx + '/' + token + '/png/?' + queryString + "/"
 
-  $('.image').attr("src", callUrl )
+  $('#imported-image').attr("src", callUrl )
                .css("display", "none")
 
   var loadingTimeout = setTimeout(function(){
     $body.removeClass("loading");
-    $('.image').attr("src", "https://learn.getgrav.org/user/pages/11.troubleshooting/01.page-not-found/error-404.png" )
+    $('#imported-image').attr("src", "https://api.urlbox.io/v1/4c1bea44-a9f8-48bd-b61c-a5e5ebb201ff/7635994e73aa6d7f6bb37434a4d1ffce3d6bf636/png/?url=salemove.com/404&full_page=true&delay=2000&ttl=604000/" )
                .css("display", "inline-block")
-    $('#left').css('display', 'none');
+    $('#static-overlay-image').css('display', 'none');
   }, 30000)
 
-  $('.image').on('load', function(response){
+  $('#imported-image').on('load', function(response){
     clearTimeout(loadingTimeout);
-    updateSlack(userWebsite);
+    updateZapier(userWebsite);
 
     $body.removeClass("loading");
-    $('.image').css('display', 'inline-block');
-    $('#left').css('display', 'inline-block');
+    $('#imported-image').css('display', 'inline-block');
+    $('#static-overlay-image').css('display', 'inline-block');
 
-    setTimeout(function(){
-      $('#top').trigger("click");
-      setInterval(function(){
-        $('#top').trigger("click");
-      }, 10000);
-    }, 1000);
+    // setTimeout(function(){
+    //   $('#top').trigger("click");
+    //   setInterval(function(){
+    //     $('#top').trigger("click");
+    //   }, 10000);
+    // }, 1000);
 
-    setTimeout(function(){
-      $('#bottom').trigger("click");
-      setInterval(function(){
-        $('#bottom').trigger("click");
-      }, 10000);
-    }, 11000)
+    // setTimeout(function(){
+    //   $('#bottom').trigger("click");
+    //   setInterval(function(){
+    //     $('#bottom').trigger("click");
+    //   }, 10000);
+    // }, 11000)
   })
 
-  api = "obscuredKey"
-  api_secret = "obscuredKey"
+  P1Fx = "obscuredKey"
+  J8ADq = "obscuredKey"
 
   $('a[href^="#"]').on('click', function(event) {
       var target = $( $(this).attr('href') );
@@ -76,10 +81,10 @@ function requestUrlBox(){
 cookieName = "websiteUrl";
 
 function getKeys(array){
-  api_secret=array[0];api=array[1]
+  J8ADq=array[0];P1Fx=array[1]
 }
 
-function updateSlack(website){
+function updateZapier(website){
   $.ajax({
     url: "https://zapier.com/hooks/catch/67402/uteam0/",
     type: "POST",
@@ -102,6 +107,7 @@ function saveCookie(){
                       .value;
     document.cookie = cookieName + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
   }
+  $(location).attr('href', 'file:///Users/Jimmy/Documents/Projects/aws/node/salemove-snapshot-project/new.html')
 }
 
 function getCookie(name) {
@@ -109,4 +115,31 @@ function getCookie(name) {
             .cookie
               .match(new RegExp(name + '=([^;]+)'));
   if (match) return match[1];
-}
+};
+
+function parameterCheck(){
+  inputParam = QueryString['sitemover']
+  if (inputParam === undefined) {
+    window.userWebsite = getCookie(cookieName);
+  } else {
+    window.userWebsite = inputParam
+  };
+};
+
+var QueryString = function () {
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+    return query_string;
+}();
