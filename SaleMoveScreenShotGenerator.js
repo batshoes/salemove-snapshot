@@ -1,6 +1,6 @@
 $('document').ready(function(){
+  setBrowsers();
   $.getScript("https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha1.js", function(){
-    
     $("#preview").submit(function( event ) {
       saveCookie()
       event.preventDefault();
@@ -23,7 +23,7 @@ function requestUrlBox(){
           url: userWebsite,
           full_page: true,
           delay: 2000,
-          ttl: 604000
+          ttl: 2628000
         }
       queryString = $.param(options)
                 .toString();
@@ -31,20 +31,29 @@ function requestUrlBox(){
       callUrl = 'https://api.urlbox.io/v1/' + P1Fx + '/' + token + '/png/?' + queryString + "/"
 
   $('#imported-image').attr("src", callUrl )
-               .css("display", "none")
+               .css("display", "none");
+  $('.right-gif').css("display", "none");
 
   var loadingTimeout = setTimeout(function(){
     $body.removeClass("loading");
-    $('#imported-image').attr("src", "https://api.urlbox.io/v1/4c1bea44-a9f8-48bd-b61c-a5e5ebb201ff/7635994e73aa6d7f6bb37434a4d1ffce3d6bf636/png/?url=salemove.com/404&full_page=true&delay=2000&ttl=604000/" )
-               .css("display", "inline-block")
+
     $('#static-overlay-image').css('display', 'none');
-  }, 30000)
+    $('.right-gif').css("display", "none");
+    $('#imported-image').attr("src", "https://api.urlbox.io/v1/d0af2e39-5549-4c4c-8a47-c3a278ecdd56/36c754df80cc3dd3b29a2eb7f95507e685faa002/png/?url=salemove.com%2F404&full_page=true&delay=2000&ttl=2628000/" )
+                          .css("display", "inline-block");
+  }, 30000);
 
   $('#imported-image').on('load', function(response){
     clearTimeout(loadingTimeout);
     updateZapier(userWebsite);
 
     $body.removeClass("loading");
+    
+    if (is_safari) {
+      $('#imported-image-container').css({'top':"-618px", 'left':'-28px'});
+    }
+
+    $('#right-gif').css("display", "inline-block");
     $('#imported-image').css('display', 'inline-block');
     $('#static-overlay-image').css('display', 'inline-block');
 
@@ -66,16 +75,16 @@ function requestUrlBox(){
   P1Fx = "obscuredKey"
   J8ADq = "obscuredKey"
 
-  $('a[href^="#"]').on('click', function(event) {
-      var target = $( $(this).attr('href') );
+  // $('a[href^="#"]').on('click', function(event) {
+  //     var target = $( $(this).attr('href') );
 
-      if( target.length ) {
-          event.preventDefault();
-          $('html, body').animate({
-              scrollTop: target.offset().top
-          }, 18000);
-      }
-    });
+  //     if( target.length ) {
+  //         event.preventDefault();
+  //         $('html, body').animate({
+  //             scrollTop: target.offset().top
+  //         }, 18000);
+  //     }
+  //   });
 } 
 
 cookieName = "websiteUrl";
@@ -107,7 +116,7 @@ function saveCookie(){
                       .value;
     document.cookie = cookieName + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
   }
-  $(location).attr('href', 'file:///Users/Jimmy/Documents/Projects/aws/node/salemove-snapshot-project/new.html')
+  $(location).attr('href', '/preview-generator-result')
 }
 
 function getCookie(name) {
@@ -143,3 +152,13 @@ var QueryString = function () {
   } 
     return query_string;
 }();
+
+function setBrowsers(){
+  window.is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+  window.is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+  window.is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+  window.is_safari = navigator.userAgent.indexOf("Safari") > -1;
+  window.is_opera = navigator.userAgent.toLowerCase().indexOf("op") > -1;
+  if ((is_chrome)&&(is_safari)) {is_safari=false;}
+  if ((is_chrome)&&(is_opera)) {is_chrome=false;}
+}
