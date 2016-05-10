@@ -51,6 +51,10 @@ function requestUrlBox(){
     
     if (is_safari) {
       $('#imported-image-container').css({'top':"-618px", 'left':'-28px'});
+      $('#chat-generator-arrow').css({'top':"-589px", 'position':'relative'});
+      $('#browser').css({'max-height': '761px'});
+      $('#features-container-safari').css({"position": "relative", "top": "-460px"});
+      $('#Features').css({"max-height": "550px"});
     }
 
     $('#right-gif').css("display", "inline-block");
