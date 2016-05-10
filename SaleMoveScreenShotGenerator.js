@@ -5,10 +5,14 @@ $('document').ready(function(){
       saveCookie()
       event.preventDefault();
     });
+    
+    if(window.location.href.indexOf("preview-generator-result") > -1) {
+      $body = $("body");
+      $body.addClass("loading");
+      requestUrlBox();
+    }
+    
 
-    $body = $("body");
-    $body.addClass("loading");
-    requestUrlBox()
   });
 });
 
@@ -120,14 +124,19 @@ function saveCookie(){
                       .value;
     document.cookie = cookieName + "=" + userWebsite + "; expires=Monday, 04-Apr-2020 05:00:00 GMT";
   }
-  $(location).attr('href', '/preview-generator-result')
+  $(location).attr('href', 'preview-generator-result?sitemover=' + userWebsite)
 }
 
 function getCookie(name) {
   match = document
             .cookie
               .match(new RegExp(name + '=([^;]+)'));
-  if (match) return match[1];
+              
+  if (match) {
+    return match[1];
+  } else {
+    $(location).attr('href', '/')
+  };
 };
 
 function parameterCheck(){
